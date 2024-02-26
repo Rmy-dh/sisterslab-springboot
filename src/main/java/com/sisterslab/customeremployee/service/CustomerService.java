@@ -1,7 +1,7 @@
 package com.sisterslab.customeremployee.service;
 
 import com.sisterslab.customeremployee.model.Customer;
-import com.sisterslab.customeremployee.repository.CustomerRepository;
+import com.sisterslab.customeremployee.repository.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
@@ -14,19 +14,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class CustomerService {
-    private final CustomerRepository customerRepository;
-    private static final Logger LOGGER= LogManager.getLogger(CustomerRepository.class);
+    private final ICustomerRepository ICustomerRepository;
+    private static final Logger LOGGER= LogManager.getLogger(ICustomerRepository.class);
     public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);
+        return ICustomerRepository.save(customer);
 
     }
 
     public List<Customer> getAllCustomers() {
-        return  customerRepository.findAll();
+        return  ICustomerRepository.findAll();
     }
 
     public Customer getCustomerById(Long id) {
-        Optional<Customer> customer=customerRepository.findById(id);
+        Optional<Customer> customer= ICustomerRepository.findById(id);
         if(customer.isPresent()){
             return customer.get();
         }else{
@@ -36,17 +36,17 @@ public class CustomerService {
     }
 
     public String setCustomerName(Long id, Customer customer) {
-        Optional<Customer> customerOptional=customerRepository.findById(id);
+        Optional<Customer> customerOptional= ICustomerRepository.findById(id);
         if(customerOptional.isPresent()){
             Customer oldCustomer=customerOptional.get();
             oldCustomer.setName(customer.getName());
-            customerRepository.save(oldCustomer);
+            ICustomerRepository.save(oldCustomer);
             return "Success";
         }
         return  "Failed";
     }
 
     public void deleteCustomerById(Long id) {
-        customerRepository.deleteById(id);
+        ICustomerRepository.deleteById(id);
     }
 }
