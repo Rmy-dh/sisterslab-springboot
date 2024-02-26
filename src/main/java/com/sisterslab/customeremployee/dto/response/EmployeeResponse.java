@@ -12,5 +12,5 @@ public class EmployeeResponse {
     private String surName;
     private String department;
     private String email;
-    private Date startDate=new Date();
+    private Date startDate;
 }
